@@ -4,7 +4,7 @@ from tkinter import messagebox
 from sound_player import SoundPlayer
 from home_page import HomePage
 from data_handler import BackUpDatabase, RecoverDatabase
-global dp_image
+global gj_image
 
 
 class MainApp(SoundPlayer, HomePage, BackUpDatabase, RecoverDatabase):
