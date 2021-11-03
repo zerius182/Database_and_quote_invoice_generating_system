@@ -4,7 +4,6 @@ from tkinter import messagebox
 from sound_player import SoundPlayer
 from home_page import HomePage
 from data_handler import BackUpDatabase, RecoverDatabase
-global gj_image
 
 
 class MainApp(SoundPlayer, HomePage, BackUpDatabase, RecoverDatabase):
@@ -18,7 +17,6 @@ class MainApp(SoundPlayer, HomePage, BackUpDatabase, RecoverDatabase):
         root = Tk()
 
         project_background_colour = "#8e94a4"
-        project_bar_colour = "#3b415b"
 
         self.master = root
         self.start_up_jingle()
@@ -35,8 +33,13 @@ class MainApp(SoundPlayer, HomePage, BackUpDatabase, RecoverDatabase):
         self.width = 1280
         self.frame_height = 496
         self.master.resizable(0, 0)
+        self.home_page_config()
+        self.check_started()
 
-        # Homepage config
+    def home_page_config(self):
+        """Creates header, footer, home button and main frame"""
+        project_background_colour = "#8e94a4"
+        project_bar_colour = "#3b415b"
         self.homepage_header_frame = Frame(self.master)
         self.homepage_header_frame.config(width=self.width, height=self.height/10, bg=project_bar_colour)
         self.homepage_header_frame.grid(row=0, column=0, columnspan=5, pady=(0, 40))
@@ -66,6 +69,8 @@ class MainApp(SoundPlayer, HomePage, BackUpDatabase, RecoverDatabase):
         self.homepage_footer_label.place(x=str(self.width / 2), y=str(self.homepage_footer_frame.winfo_reqheight() / 2),
                                          anchor="center")
 
+    def check_started(self):
+        """Checks whether to play button click sound when start_home function is called"""
         self.started = False
         self.start_home(self.main_frame, self.homepage_button, self.master, self.started)
         self.started = True
@@ -88,7 +93,11 @@ class MainApp(SoundPlayer, HomePage, BackUpDatabase, RecoverDatabase):
         self.mrdtl_top_level.geometry("400x200")
         self.mrdtl_top_level.resizable(0, 0)
         self.mrdtl_top_level.iconbitmap("pictures/gj.ico")
+        self.create_mrdtl_frames()
+        self.create_mrdtl_buttons()
 
+    def create_mrdtl_frames(self):
+        """Creates frames for mrdtl"""
         self.mrdtl_top_frame = Frame(self.mrdtl_top_level)
         self.mrdtl_top_frame.config(height=40, width=400, bg=self.project_bar_colour)
         self.mrdtl_top_frame.grid(row=0, column=0)
@@ -113,6 +122,8 @@ class MainApp(SoundPlayer, HomePage, BackUpDatabase, RecoverDatabase):
         self.mrdtl_entry.config(font=self.cid_font, width=8)
         self.mrdtl_entry.place(x="260", y="20")
 
+    def create_mrdtl_buttons(self):
+        """buttons for mrdtl"""
         self.mrdtl_button = Label(self.mrdtl_main_frame)
         self.mrdtl_button.config(font=self.cid_font, text="Submit Password", bg=self.project_bar_colour)
         self.mrdtl_button.place(x="200", y="80", anchor="center")
@@ -122,7 +133,8 @@ class MainApp(SoundPlayer, HomePage, BackUpDatabase, RecoverDatabase):
 
     def admin_button_function(self, event):
         """Checks inputted password is correct and if so calls recover_database method"""
-        admin_password = "18269"
+        admin_password = "18269"  # This is a crude way to go about this but I don't want the client messing around with
+        # the databases unless it's absolutely necessary
         if self.mrdtl_entry.get() == admin_password:
             self.mrdtl_entry.delete(0, END)
             self.recover_database()
