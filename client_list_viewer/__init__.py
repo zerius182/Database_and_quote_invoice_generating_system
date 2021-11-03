@@ -23,7 +23,7 @@ class DisplayClientList(ClientInfoDisplay, ClientListPopulate):
         self.filename = "client_database.json"
 
     def display_client_list(self, main_frame, dcl_root):
-        """Displays client list on client list viewer"""
+        """Displays client list on client list viewer, creates frames"""
         self.main_frame = main_frame
         self.dcl_root = dcl_root
 
@@ -33,13 +33,14 @@ class DisplayClientList(ClientInfoDisplay, ClientListPopulate):
         self.dcl_main_frame.grid(row=0, column=0)
         self.dcl_main_frame.grid_propagate(False)
 
-        # Search function widgets
-
         self.search_frame = Frame(self.dcl_main_frame)
         self.search_frame.config(bg=self.project_background_colour, width=self.width, height=100)
         self.search_frame.grid(row=1, column=0)
         self.search_frame.grid_propagate(False)
+        self.create_search_labels_and_buttons()
 
+    def create_search_labels_and_buttons(self):
+        """Creates search labels and buttons"""
         self.search_label = Label(self.search_frame, text="Search Client Database:")
         self.search_label.config(font=self.dcl_font_large, bg=self.project_background_colour)
         self.search_label.grid(row=0, column=0, pady=(40, 0), padx=(35, 0), sticky="w")
@@ -59,7 +60,6 @@ class DisplayClientList(ClientInfoDisplay, ClientListPopulate):
         self.refresh_button = Label(self.search_frame, text="Refresh Client List")
         self.refresh_button.config(font=self.dcl_font_large, bg=self.project_bar_colour)
         self.refresh_button.grid(row=0, column=3, pady=(40, 0), padx=10, sticky="w")
-
 
     def display_all_clients(self):
         """Displays a list of all clients"""
@@ -249,19 +249,3 @@ class DisplayClientList(ClientInfoDisplay, ClientListPopulate):
         self.dict_keys = self.clv_dict_key_maker()
         for item in self.to_display:
             self.client_listbox.insert(END, item)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
