@@ -5,7 +5,6 @@ from sound_player import SoundPlayer
 from add_new_client import AddNewClient
 from client_list_viewer import DisplayClientList
 
-global gj_image
 hp_sounds = SoundPlayer()
 
 
@@ -23,7 +22,25 @@ class HomePage(AddNewClient, DisplayClientList):
         self.frame_height = 496
 
     def start_home(self, main_frame, home_button, main_root, start_cond):
-        """Constructs home page"""
+        """creates home page"""
+
+        self.home_button = home_button
+        self.main_frame = main_frame
+        self.main_root = main_root
+        self.main_root.unbind("<Return>")
+        self.start_cond = start_cond
+        self.main_root.title("Database System")
+        if self.start_cond:
+            hp_sounds.play_click()
+        self.create_home_page()
+
+    def create_home_page(self):
+        self.run_try_excepts()
+        self.create_frames_and_image()
+        self.create_options()
+
+    def run_try_excepts(self):
+        """Runs through try/excepts"""
         try:
             self.anc_info_frame.destroy()
         except AttributeError:
@@ -45,15 +62,8 @@ class HomePage(AddNewClient, DisplayClientList):
         except AttributeError:
             pass
 
-        self.home_button = home_button
-        self.main_frame = main_frame
-        self.main_root = main_root
-        self.main_root.unbind("<Return>")
-        self.start_cond = start_cond
-        self.main_root.title("Database System")
-        if self.start_cond:
-            hp_sounds.play_click()
-
+    def create_frames_and_image(self):
+        """Creates homepage frames and image"""
         self.homepage_frame = Frame(self.main_frame)
         self.homepage_frame.config(width=self.width, height=self.frame_height, bg=self.project_background_colour,
                                    borderwidth=0,
@@ -74,7 +84,8 @@ class HomePage(AddNewClient, DisplayClientList):
         self.options_frame.config(bg=self.project_background_colour, height=500, width=640)
         self.options_frame.grid(row=0, column=2, columnspan=3, sticky="w", padx=(25, 0), pady=5)
 
-        # Options Widgets
+    def create_options(self):
+        """Creates home page options labels"""
         options_font = (None, "30")
         self.add_client_label = Label(self.options_frame)
         self.add_client_label.config(text="Add New Client", font=options_font, bg=self.project_background_colour)
