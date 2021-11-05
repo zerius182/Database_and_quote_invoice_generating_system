@@ -7,7 +7,6 @@ atmal_sounds = SoundPlayer()
 
 
 class AddToMatAndLab(AddDataToMatAndLabour):
-    """Creates page to add materials and labour to database"""
     def __init__(self):
         AddDataToMatAndLabour.__init__(self)
         self.project_background_colour = "#8e94a4"
@@ -24,15 +23,17 @@ class AddToMatAndLab(AddDataToMatAndLabour):
         self.cid_font_underline = ("Arial", "16", "underline")
         self.filename = "client_database.json"
 
-
     def create_add_mat_and_lab_page(self, atmal_key, atmal_frame, atmal_root, mat_frame, mat_box):
-        """Creates adtmal page"""
         self.atmal_frame = atmal_frame
         self.atmal_key = atmal_key
         self.atmal_root = atmal_root
         self.mat_frame = mat_frame
         self.mat_box = mat_box
+        self.create_atmal_frame_and_label()
+        self.create_atmal_labels()
+        self.create_atmal_button()
 
+    def create_atmal_frame_and_label(self):
         self.atmal_info_frame = Frame(self.atmal_frame)
         self.atmal_info_frame.config(bg=self.project_background_colour, height=self.frame_height, width=810,
                                      highlightthickness=0, borderwidth=0)
@@ -47,6 +48,7 @@ class AddToMatAndLab(AddDataToMatAndLabour):
         self.mat_frame.config(height=self.frame_height)
         self.mat_box.config(height=15)
 
+    def create_atmal_labels(self):
         self.first_label = AddEntryFields(self.atmal_info_frame, 1, 0)
         self.second_label = AddEntryFields(self.atmal_info_frame, 2, 0)
         self.third_label = AddEntryFields(self.atmal_info_frame, 3, 0)
@@ -56,6 +58,7 @@ class AddToMatAndLab(AddDataToMatAndLabour):
         self.seventh_label = AddEntryFields(self.atmal_info_frame, 7, 0)
         self.eighth_label = AddEntryFields(self.atmal_info_frame, 8, 0)
 
+    def create_atmal_button(self):
         self.atmal_button_label = Label(self.atmal_info_frame)
         self.atmal_button_label.config(font=self.cid_font_large_no_line, bg=self.project_bar_colour,
                                        text="Add To Materials And Labour")
@@ -64,9 +67,7 @@ class AddToMatAndLab(AddDataToMatAndLabour):
         self.atmal_button_label.bind("<Leave>", lambda _: self.atmal_button_label.config(relief="flat"))
         self.atmal_button_label.bind("<Button-1>", self.get_mat_and_lab_details)
 
-
     def get_mat_and_lab_details(self, event):
-        """Gets inputted entries and calls method to add to client database"""
         atmal_sounds.play_click()
         to_check = {self.first_label.item_entry_name.get(): self.first_label.price_entry.get(),
                     self.second_label.item_entry_name.get(): self.second_label.price_entry.get(),
@@ -87,7 +88,6 @@ class AddToMatAndLab(AddDataToMatAndLabour):
         self.repopulate_client_mat_and_lab_listbox()
 
     def clear_data_fields(self):
-        """CLears entry fields"""
         self.first_label.item_entry_name.delete(0, END)
         self.first_label.price_entry.delete(0, END)
         self.second_label.item_entry_name.delete(0, END)
@@ -106,7 +106,6 @@ class AddToMatAndLab(AddDataToMatAndLabour):
         self.eighth_label.price_entry.delete(0, END)
 
     def repopulate_client_mat_and_lab_listbox(self):
-        """Deletes and repopulates adtmal listbox"""
         self.mat_box.delete(0, END)
         new_mat_and_lab_list = MatAndLabListBoxPopulate().populate_mat_lab_listbox(self.atmal_key, display_full=False)
         for item in new_mat_and_lab_list:
@@ -114,7 +113,6 @@ class AddToMatAndLab(AddDataToMatAndLabour):
 
 
 class AddEntryFields:
-    """Class to create label and entry box on adtmal page"""
     def __init__(self, frame, row_param, column_param):
         self.row_param = row_param
         self.column_param = column_param
