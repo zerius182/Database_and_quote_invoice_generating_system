@@ -12,7 +12,7 @@ each client and the ability to work out total costs, amount owing, amount paid e
 
 Flow of the System
 
-Each client added to the database has a simple flow following the clients vision. The client details are added to the database, 
+Each client added to the database has a simple flow following the clients vision. The customer details are added to the database, 
 where the client can make a choice on whether they want to add to the favourite list. Once the client has been added the
 details can be accessed by selecting them from a list of all customers. The client then adds material and labour costs,
 adds customer nickname(optional) and notes(optional) then marks customer as quote sent. The total, amount outstanding
