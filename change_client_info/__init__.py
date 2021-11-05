@@ -7,7 +7,6 @@ cci_sounds = SoundPlayer()
 
 
 class ChangeClientInfo(ChangeClientInfoDataHandler):
-    """Change CLient Info Page"""
     def __init__(self):
         ChangeClientInfoDataHandler.__init__(self)
         self.project_background_colour = "#8e94a4"
@@ -24,19 +23,24 @@ class ChangeClientInfo(ChangeClientInfoDataHandler):
         self.cid_font_underline = ("Arial", "16", "underline")
 
     def create_change_client_info(self, key, frame, root, client_dict, fnc):
-        """Creates change client info page"""
         self.cci_key = key
         self.cci_frame = frame
         self.cci_root = root
         self.cci_dict = client_dict
         self.fnc = fnc
+        self.create_cci_frame()
+        self.create_cci_labels_and_entries()
+        self.create_cci_button()
+        self.populate_entry_boxes()
 
+    def create_cci_frame(self):
         self.cci_info_frame = Frame(self.cci_frame)
         self.cci_info_frame.config(bg=self.project_background_colour, height=self.frame_height, width=self.width,
                                    highlightthickness=0, borderwidth=0)
         self.cci_info_frame.grid(row=0, column=0)
         self.cci_info_frame.grid_propagate(False)
 
+    def create_cci_labels_and_entries(self):
         self.name_label = AddCciFields(self.cci_info_frame, 0, 0, "Client Name: ")
         self.service_add_1_label = AddCciFields(self.cci_info_frame, 1, 0, "Service Address Line One: ")
         self.service_add_2_label = AddCciFields(self.cci_info_frame, 2, 0, "Service Address Line Two: ")
@@ -57,6 +61,7 @@ class ChangeClientInfo(ChangeClientInfoDataHandler):
         self.date_paid_label = AddCciFields(self.cci_info_frame, 7, 2, "Date Paid: ")
         AddCciFields.pad = 40
 
+    def create_cci_button(self):
         self.change_details_button = Label(self.cci_info_frame)
         self.change_details_button.config(bg=self.project_bar_colour, text="Add New Details To Client Database",
                                           font=self.cid_font)
@@ -64,10 +69,8 @@ class ChangeClientInfo(ChangeClientInfoDataHandler):
         self.change_details_button.bind("<Enter>", lambda _: self.change_details_button.config(relief="ridge"))
         self.change_details_button.bind("<Leave>", lambda _: self.change_details_button.config(relief="flat"))
         self.change_details_button.bind("<Button-1>", self.add_new_details_button_func)
-        self.populate_entry_boxes()
 
     def populate_entry_boxes(self):
-        """Populates entry boxes in change_client_info page"""
         self.name_label.item_entry_name.insert(END, self.cci_dict["name"])
         self.service_add_1_label.item_entry_name.insert(END, self.cci_dict["service_address"]["service_add_1"])
         self.service_add_2_label.item_entry_name.insert(END, self.cci_dict["service_address"]["service_add_2"])
@@ -90,7 +93,6 @@ class ChangeClientInfo(ChangeClientInfoDataHandler):
         self.date_paid_label.item_entry_name.insert(END, self.cci_dict["date_paid"])
 
     def variable_maker(self):
-        """Creates variables for use in add_new_details_button_func"""
         self.name_var = self.name_label.item_entry_name.get()
         self.serv_add_1_var = self.service_add_1_label.item_entry_name.get()
         self.serv_add_2_var = self.service_add_2_label.item_entry_name.get()
@@ -113,7 +115,6 @@ class ChangeClientInfo(ChangeClientInfoDataHandler):
         self.paid_var = self.date_paid_label.item_entry_name.get()
 
     def entry_field_clear(self):
-        """Clears entry fields, will most likely not need to use this method"""
         self.name_label.item_entry_name.delete(0, END)
         self.service_add_1_label.item_entry_name.delete(0, END)
         self.service_add_2_label.item_entry_name.delete(0, END)
@@ -133,7 +134,6 @@ class ChangeClientInfo(ChangeClientInfoDataHandler):
         self.date_paid_label.item_entry_name.delete(0, END)
 
     def add_new_details_button_func(self, event):
-        """Calls all methods involved in the process of adding new data to client database"""
         cci_sounds.play_click()
         self.variable_maker()
         conf_message = messagebox.askyesno(title="Confirm Data Change", message="Are you sure you want to change"
@@ -152,8 +152,7 @@ class ChangeClientInfo(ChangeClientInfoDataHandler):
 
 class AddCciFields:
     pad = 40
-    """Class to create labels and entry fields, created to save time creating each of the instances
-     individually from scratch"""
+
     def __init__(self, frame, row_param, column_param, label_cci_name):
         self.row_param = row_param
         self.column_param = column_param
