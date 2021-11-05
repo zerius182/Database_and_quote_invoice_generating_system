@@ -12,13 +12,13 @@ each client and the ability to work out total costs, amount owing, amount paid e
 
 Flow of the System
 
-Each client added to the database has a simple flow following the clients vision. The customer details are added to the database, 
-where the client can make a choice on whether they want to add to the favourite list. Once the client has been added the
+Each customer added to the database has a simple flow following the clients vision. The customer details are added to the database, 
+where the client can make a choice on whether they want to add to the favourite list. Once the customer has been added the
 details can be accessed by selecting them from a list of all customers. The client then adds material and labour costs,
 adds customer nickname(optional) and notes(optional) then marks customer as quote sent. The total, amount outstanding
-and date sent will be added to client information.
+and date sent will be added to customer information.
 At this point the customer will show up in both the "all clients" list and the "quotes pending" list. All data saved
-for this customer is modifiable by selecting the change client info option from the options menu. The customer can then
+for this customer is modifiable by selecting the "change client info" option from the options menu. The customer can then
 be marked as either "quote accepted" or "quote declined", adding this customer to the quotes accepted list if quotes
 accepted was selected. Client can then mark customer as "invoice sent", at which point they will move to the awaiting 
 payment list and customer info will show the date invoice was sent. Once customer has paid in full the client will "mark as paid",
