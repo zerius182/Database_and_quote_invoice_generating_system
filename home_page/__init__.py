@@ -9,7 +9,6 @@ hp_sounds = SoundPlayer()
 
 
 class HomePage(AddNewClient, DisplayClientList):
-    """Class containing methods for home page"""
     def __init__(self):
         AddNewClient.__init__(self)
         DisplayClientList.__init__(self)
@@ -22,8 +21,6 @@ class HomePage(AddNewClient, DisplayClientList):
         self.frame_height = 496
 
     def start_home(self, main_frame, home_button, main_root, start_cond):
-        """creates home page"""
-
         self.home_button = home_button
         self.main_frame = main_frame
         self.main_root = main_root
@@ -40,7 +37,6 @@ class HomePage(AddNewClient, DisplayClientList):
         self.create_options()
 
     def run_try_excepts(self):
-        """Runs through try/excepts"""
         try:
             self.anc_info_frame.destroy()
         except AttributeError:
@@ -63,7 +59,6 @@ class HomePage(AddNewClient, DisplayClientList):
             pass
 
     def create_frames_and_image(self):
-        """Creates homepage frames and image"""
         self.homepage_frame = Frame(self.main_frame)
         self.homepage_frame.config(width=self.width, height=self.frame_height, bg=self.project_background_colour,
                                    borderwidth=0,
@@ -72,7 +67,7 @@ class HomePage(AddNewClient, DisplayClientList):
 
         self.homepage_image_frame = Frame(self.homepage_frame)
 
-        global gj_image
+        global gj_image # This is neccesary due to tkinter/pil funkyness
         gj_image = ImageTk.PhotoImage(Image.open("pictures/gj.png"))
         self.homepage_image_frame.config(height=500, width=500, highlightthickness=0, borderwidth=0)
         self.homepage_image_frame.grid(row=0, column=0, columnspan=2, padx=(25, 0), pady=40)
@@ -85,7 +80,6 @@ class HomePage(AddNewClient, DisplayClientList):
         self.options_frame.grid(row=0, column=2, columnspan=3, sticky="w", padx=(25, 0), pady=5)
 
     def create_options(self):
-        """Creates home page options labels"""
         options_font = (None, "30")
         self.add_client_label = Label(self.options_frame)
         self.add_client_label.config(text="Add New Client", font=options_font, bg=self.project_background_colour)
@@ -139,7 +133,6 @@ class HomePage(AddNewClient, DisplayClientList):
         self.completed_jobs_label.bind("<Button-1>", self.open_completed_jobs)
 
     def add_new_client(self, event):
-        """Opens add new client page"""
         hp_sounds.play_click()
         self.homepage_frame.grid_forget()
         self.home_button.grid(row=0, column=0, pady=18, padx=self.width-120)
@@ -147,7 +140,6 @@ class HomePage(AddNewClient, DisplayClientList):
         self.main_root.title("Database System - Add New Client")
 
     def open_client_list(self, event):
-        """Opens client list page"""
         hp_sounds.play_click()
         self.homepage_frame.grid_forget()
         self.home_button.grid(row=0, column=0, pady=18, padx=self.width-120)
@@ -156,7 +148,6 @@ class HomePage(AddNewClient, DisplayClientList):
         self.main_root.title("Database System - View Client List")
 
     def open_quotes_pending(self, event):
-        """Open quotes pending page"""
         hp_sounds.play_click()
         self.homepage_frame.grid_forget()
         self.home_button.grid(row=0, column=0, pady=18, padx=self.width - 120)
@@ -165,7 +156,6 @@ class HomePage(AddNewClient, DisplayClientList):
         self.main_root.title("Database System - View Quotes Pending List")
 
     def open_quotes_accepted(self, event):
-        """Open quotes accepted page"""
         hp_sounds.play_click()
         self.homepage_frame.grid_forget()
         self.home_button.grid(row=0, column=0, pady=18, padx=self.width - 120)
@@ -174,7 +164,6 @@ class HomePage(AddNewClient, DisplayClientList):
         self.main_root.title("Database System - View Accepted Quotes List")
 
     def open_awaiting_payments(self, event):
-        """Open awaiting payment page"""
         hp_sounds.play_click()
         self.homepage_frame.grid_forget()
         self.home_button.grid(row=0, column=0, pady=18, padx=self.width - 120)
@@ -183,7 +172,6 @@ class HomePage(AddNewClient, DisplayClientList):
         self.main_root.title("Database System - View Awaiting Payments List")
 
     def open_completed_jobs(self, event):
-        """Open completed jobs page"""
         hp_sounds.play_click()
         self.homepage_frame.grid_forget()
         self.home_button.grid(row=0, column=0, pady=18, padx=self.width - 120)

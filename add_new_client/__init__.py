@@ -6,7 +6,6 @@ anc_sounds = SoundPlayer()
 
 
 class AddNewClient(DataCreator, ClientListPopulate, FavouriteInfoDictCreate):
-    """Adds customer detail entry to MainApp screen"""
     def __init__(self):
         DataCreator.__init__(self)
         ClientListPopulate.__init__(self)
@@ -26,7 +25,6 @@ class AddNewClient(DataCreator, ClientListPopulate, FavouriteInfoDictCreate):
         self.cid_font_underline = ("Arial", "16", "underline")
 
     def start_anc_page(self, main_frame, main_root):
-        """Creates start_anc page"""
         self.main_frame = main_frame
         self.main_root = main_root
         self.create_anc_page()
@@ -42,7 +40,6 @@ class AddNewClient(DataCreator, ClientListPopulate, FavouriteInfoDictCreate):
         self.create_buttons()
 
     def create_anc_frames(self):
-        """Creates frames"""
         self.anc_info_frame = Frame(self.main_frame)
         self.anc_info_frame.config(width=self.width, height=self.frame_height, borderwidth=0, highlightthickness=0,
                                    bg=self.project_background_colour)
@@ -54,7 +51,6 @@ class AddNewClient(DataCreator, ClientListPopulate, FavouriteInfoDictCreate):
         self.customer_details_frame.grid(row=0, column=0, columnspan=3)
 
     def create_new_customer_name_and_address_labels(self):
-        """Creates customer name and address labels"""
         self.new_customer_name_label = Label(self.customer_details_frame)
         self.new_customer_name_label.config(font=self.add_new_client_font, bg=self.project_background_colour,
                                             text="Client Name:")
@@ -70,7 +66,6 @@ class AddNewClient(DataCreator, ClientListPopulate, FavouriteInfoDictCreate):
         self.new_customer_name_label_entry.grid(row=0, column=1)
 
     def create_anc_service(self):
-        """Creates service address entries"""
         self.service_address_line1_entry = Entry(self.customer_details_frame)
         self.service_address_line1_entry.config(font=self.add_new_client_font, width=30)
         self.service_address_line1_entry.grid(row=1, column=1, pady=10)
@@ -89,7 +84,6 @@ class AddNewClient(DataCreator, ClientListPopulate, FavouriteInfoDictCreate):
         self.service_postcode_entry.grid(row=4, column=1, pady=10, sticky="w")
 
     def create_email_and_phone(self):
-        """Creates email and phone labels and entries"""
         self.customer_email_label = Label(self.customer_details_frame, text="Client Email:")
         self.customer_email_label.config(font=self.add_new_client_font, bg=self.project_background_colour)
         self.customer_email_label.grid(row=5, column=0, pady=(40, 10), sticky="w")
@@ -114,7 +108,6 @@ class AddNewClient(DataCreator, ClientListPopulate, FavouriteInfoDictCreate):
         self.customer_landline_entry.grid(row=7, column=1, pady=10, sticky="w")
 
     def create_job_desc_and_job_address(self):
-        """Creates job address frame, label and job desc label"""
         self.service_address_frame = Frame(self.anc_info_frame)
         self.service_address_frame.config(bg=self.project_background_colour, borderwidth=0, highlightthickness=0,
                                           height=self.frame_height, width=500)
@@ -134,7 +127,6 @@ class AddNewClient(DataCreator, ClientListPopulate, FavouriteInfoDictCreate):
         self.service_address_label.grid(row=2, column=0, columnspan=3, pady=(20, 10))
 
     def create_instructions(self):
-        """Create instructions label"""
         self.service_address_instruction_label = Label(self.service_address_frame,
                                                        text=("leave all fields blank if job address is the same as"
                                                              " service address"))
@@ -142,7 +134,6 @@ class AddNewClient(DataCreator, ClientListPopulate, FavouriteInfoDictCreate):
         self.service_address_instruction_label.grid(row=2, column=0, columnspan=3, pady=(70, 0))
 
     def create_entries(self):
-        """Creates customer address entries"""
         self.customer_address_line_1_entry = Entry(self.service_address_frame)
         self.customer_address_line_1_entry.config(font=self.add_new_client_font, width=30)
         self.customer_address_line_1_entry.grid(row=3, column=0, columnspan=3, pady=10)
@@ -157,7 +148,6 @@ class AddNewClient(DataCreator, ClientListPopulate, FavouriteInfoDictCreate):
         self.customer_postcode_entry.grid(row=6, column=0, columnspan=3, pady=10, sticky="w")
 
     def create_buttons(self):
-        """Creates buttons"""
         self.add_details_button = Label(self.service_address_frame)
         self.add_details_button.config(font=("Arial", "28"), bg=self.project_bar_colour,
                                        text="Add New Client")
@@ -177,7 +167,6 @@ class AddNewClient(DataCreator, ClientListPopulate, FavouriteInfoDictCreate):
         self.main_root.bind("<Return>", self.open_favourites)
 
     def open_favourites(self, event):
-        """Opens toplevel populated by favourite clients"""
         self.favourite_list = self.clv_populate_favourites()
         self.favourites_keys = self.clv_dict_key_maker()
         self.favourites_top = Toplevel(self.main_root)
@@ -224,7 +213,6 @@ class AddNewClient(DataCreator, ClientListPopulate, FavouriteInfoDictCreate):
         self.favourites_scroller.config(command=self.favourites_list_box.yview)
 
     def add_selected_favourite_to_anc(self, event):
-        """Adds selected client details to anc page entry fields"""
         anc_sounds.play_click()
         try:
             favourite_client_key = str(self.favourites_keys[self.favourites_list_box.curselection()[0]])
@@ -242,7 +230,6 @@ class AddNewClient(DataCreator, ClientListPopulate, FavouriteInfoDictCreate):
             pass
 
     def add_client_to_database(self, event):
-        """Adds inputted data to database and clears entry fields"""
         anc_sounds.play_click()
         anc_service_name = self.new_customer_name_label_entry.get()
         anc_service_add_1 = self.service_address_line1_entry.get()

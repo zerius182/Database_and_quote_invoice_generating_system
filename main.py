@@ -37,7 +37,6 @@ class MainApp(SoundPlayer, HomePage, BackUpDatabase, RecoverDatabase):
         self.check_started()
 
     def home_page_config(self):
-        """Creates header, footer, home button and main frame"""
         project_background_colour = "#8e94a4"
         project_bar_colour = "#3b415b"
         self.homepage_header_frame = Frame(self.master)
@@ -70,23 +69,19 @@ class MainApp(SoundPlayer, HomePage, BackUpDatabase, RecoverDatabase):
                                          anchor="center")
 
     def check_started(self):
-        """Checks whether to play button click sound when start_home function is called"""
         self.started = False
         self.start_home(self.main_frame, self.homepage_button, self.master, self.started)
         self.started = True
         self.master.mainloop()  # Mainloop is here
 
     def exit(self, event):
-        """Exits application"""
         self.master.quit()
 
     def manual_backup(self, event):
-        """Calls back_up method"""
         self.back_up()
         messagebox.showinfo(title="Manual Backup", message="Backup Successful")
 
     def make_recover_database_toplevel(self, event):
-        """Creates recover database top level"""
         self.mrdtl_top_level = Toplevel(self.master)
         self.mrdtl_top_level.title("Recover Database")
         self.mrdtl_top_level.config(bg=self.project_background_colour)
@@ -97,7 +92,6 @@ class MainApp(SoundPlayer, HomePage, BackUpDatabase, RecoverDatabase):
         self.create_mrdtl_buttons()
 
     def create_mrdtl_frames(self):
-        """Creates frames for mrdtl"""
         self.mrdtl_top_frame = Frame(self.mrdtl_top_level)
         self.mrdtl_top_frame.config(height=40, width=400, bg=self.project_bar_colour)
         self.mrdtl_top_frame.grid(row=0, column=0)
@@ -123,7 +117,6 @@ class MainApp(SoundPlayer, HomePage, BackUpDatabase, RecoverDatabase):
         self.mrdtl_entry.place(x="260", y="20")
 
     def create_mrdtl_buttons(self):
-        """buttons for mrdtl"""
         self.mrdtl_button = Label(self.mrdtl_main_frame)
         self.mrdtl_button.config(font=self.cid_font, text="Submit Password", bg=self.project_bar_colour)
         self.mrdtl_button.place(x="200", y="80", anchor="center")
@@ -132,9 +125,8 @@ class MainApp(SoundPlayer, HomePage, BackUpDatabase, RecoverDatabase):
         self.mrdtl_button.bind("<Button-1>", self.admin_button_function)
 
     def admin_button_function(self, event):
-        """Checks inputted password is correct and if so calls recover_database method"""
         admin_password = "18269"  # This is a crude way to go about this but I don't want the client messing around with
-        # the databases unless it's absolutely necessary
+        # the databases unless it's absolutely necessary.
         if self.mrdtl_entry.get() == admin_password:
             self.mrdtl_entry.delete(0, END)
             self.recover_database()

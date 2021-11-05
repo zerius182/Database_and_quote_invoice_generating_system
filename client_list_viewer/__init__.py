@@ -8,7 +8,6 @@ clv_sounds = SoundPlayer()
 
 
 class DisplayClientList(ClientInfoDisplay, ClientListPopulate):
-    """Shows Client Info"""
     def __init__(self):
         ClientInfoDisplay.__init__(self)
         ClientListPopulate.__init__(self)
@@ -23,7 +22,6 @@ class DisplayClientList(ClientInfoDisplay, ClientListPopulate):
         self.filename = "client_database.json"
 
     def display_client_list(self, main_frame, dcl_root):
-        """Displays client list on client list viewer, creates frames"""
         self.main_frame = main_frame
         self.dcl_root = dcl_root
 
@@ -40,7 +38,6 @@ class DisplayClientList(ClientInfoDisplay, ClientListPopulate):
         self.create_search_labels_and_buttons()
 
     def create_search_labels_and_buttons(self):
-        """Creates search labels and buttons"""
         self.search_label = Label(self.search_frame, text="Search Client Database:")
         self.search_label.config(font=self.dcl_font_large, bg=self.project_background_colour)
         self.search_label.grid(row=0, column=0, pady=(40, 0), padx=(35, 0), sticky="w")
@@ -62,7 +59,6 @@ class DisplayClientList(ClientInfoDisplay, ClientListPopulate):
         self.refresh_button.grid(row=0, column=3, pady=(40, 0), padx=10, sticky="w")
 
     def display_all_clients(self):
-        """Displays a list of all clients"""
         self.to_display = self.clv_populate_all()
         self.dict_keys = self.clv_dict_key_maker()
 
@@ -86,7 +82,6 @@ class DisplayClientList(ClientInfoDisplay, ClientListPopulate):
             self.client_listbox.config(selectbackground="white", selectforeground="black", activestyle="none")
 
     def display_quotes_pending_clients(self):
-        """Displays a list of all clients with pending quotes"""
         self.to_display = self.clv_populate_quotes_pending()
         self.dict_keys = self.clv_dict_key_maker()
 
@@ -110,7 +105,6 @@ class DisplayClientList(ClientInfoDisplay, ClientListPopulate):
             self.client_listbox.config(selectbackground="white", selectforeground="black", activestyle="none")
 
     def display_quotes_accepted_clients(self):
-        """Displays a list of all clients with accepted quotes"""
         self.to_display = self.clv_populate_quotes_accepted()
         self.dict_keys = self.clv_dict_key_maker()
 
@@ -134,7 +128,6 @@ class DisplayClientList(ClientInfoDisplay, ClientListPopulate):
             self.client_listbox.config(selectbackground="white", selectforeground="black", activestyle="none")
 
     def display_awaiting_payment_clients(self):
-        """Displays a list of all clients with accepted quotes"""
         self.to_display = self.clv_populate_awaiting_payment()
         self.dict_keys = self.clv_dict_key_maker()
 
@@ -158,7 +151,6 @@ class DisplayClientList(ClientInfoDisplay, ClientListPopulate):
             self.client_listbox.config(selectbackground="white", selectforeground="black", activestyle="none")
 
     def display_job_completed_clients(self):
-        """Displays a list of all clients with accepted quotes"""
         self.to_display = self.clv_populate_jobs_completed()
         self.dict_keys = self.clv_dict_key_maker()
 
@@ -182,7 +174,6 @@ class DisplayClientList(ClientInfoDisplay, ClientListPopulate):
             self.client_listbox.config(selectbackground="white", selectforeground="black", activestyle="none")
 
     def get_listbox_info(self, event):
-        """Gets client key details to display in show_client info, calls populate client info page method"""
         try:
             self.client_key = str(self.dict_keys[self.client_listbox.curselection()[0]])
             self.dcl_main_frame.destroy()
@@ -193,7 +184,6 @@ class DisplayClientList(ClientInfoDisplay, ClientListPopulate):
             pass
 
     def client_search(self, event):
-        """Calls search method and repopulates page"""
         if self.search_entry.get() == "":
             messagebox.showinfo(title="Missing Parameter", message="No search information provided")
         else:
@@ -206,7 +196,6 @@ class DisplayClientList(ClientInfoDisplay, ClientListPopulate):
                 self.client_listbox.insert(END, item)
 
     def refresh_client_list(self, event):
-        """Deletes and repopulates listbox with all client list"""
         clv_sounds.play_click()
         self.client_listbox.delete(0, END)
         self.to_display = self.clv_populate_all()
@@ -215,7 +204,6 @@ class DisplayClientList(ClientInfoDisplay, ClientListPopulate):
             self.client_listbox.insert(END, item)
 
     def refresh_pending_quotes_list(self, event):
-        """Deletes and repopulates listbox with quotes pending client list"""
         clv_sounds.play_click()
         self.client_listbox.delete(0, END)
         self.to_display = self.clv_populate_quotes_pending()
@@ -224,7 +212,6 @@ class DisplayClientList(ClientInfoDisplay, ClientListPopulate):
             self.client_listbox.insert(END, item)
 
     def refresh_accepted_quotes_list(self, event):
-        """Deletes and repopulates listbox with accepted quotes list"""
         clv_sounds.play_click()
         self.client_listbox.delete(0, END)
         self.to_display = self.clv_populate_quotes_accepted()
@@ -233,7 +220,6 @@ class DisplayClientList(ClientInfoDisplay, ClientListPopulate):
             self.client_listbox.insert(END, item)
 
     def refresh_awaiting_payment_list(self, event):
-        """Deletes and repopulates listbox with awaiting payment list"""
         clv_sounds.play_click()
         self.client_listbox.delete(0, END)
         self.to_display = self.clv_populate_awaiting_payment()
@@ -242,7 +228,6 @@ class DisplayClientList(ClientInfoDisplay, ClientListPopulate):
             self.client_listbox.insert(END, item)
 
     def refresh_jobs_completed_list(self, event):
-        """Deletes and repopulates listbox with jobs completed list"""
         clv_sounds.play_click()
         self.client_listbox.delete(0, END)
         self.to_display = self.clv_populate_jobs_completed()
