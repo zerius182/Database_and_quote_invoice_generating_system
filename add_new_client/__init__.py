@@ -285,7 +285,3 @@ class AddNewClient(DataCreator, ClientListPopulate, FavouriteInfoDictCreate):
         self.service_address_line2_entry.delete(0, END)
         self.service_address_line3_entry.delete(0, END)
         self.service_postcode_entry.delete(0, END)
-
-
-
-

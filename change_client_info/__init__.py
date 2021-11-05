@@ -169,6 +169,3 @@ class AddCciFields:
 
         self.label_name.grid(row=self.row_param, column=self.column_param, pady=13, padx=(pad, 0))
         self.item_entry_name.grid(row=self.row_param, column=self.column_param+1, sticky="w", pady=13)
-
-
-

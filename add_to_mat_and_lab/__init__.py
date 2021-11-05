@@ -1,5 +1,4 @@
 from tkinter import *
-from tkinter import messagebox
 from sound_player import SoundPlayer
 from data_handler import AddDataToMatAndLabour, MatAndLabListBoxPopulate
 
@@ -133,8 +132,3 @@ class AddEntryFields:
         self.item_entry_name.grid(row=self.row_param, column=self.column_param+1, sticky="w", pady=10)
         self.price_label.grid(row=self.row_param, column=self.column_param+2, sticky="w", pady=10)
         self.price_entry.grid(row=self.row_param, column=self.column_param+3, sticky="w", pady=10)
-
-
-
-
-

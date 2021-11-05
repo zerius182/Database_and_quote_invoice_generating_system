@@ -3,6 +3,7 @@ import datetime
 from random import randint
 from pathlib import Path
 
+
 class DataCreator:
 
     def __init__(self):
@@ -521,7 +522,7 @@ class MatAndLabListBoxPopulate:
             if not display_full:
                 for item in self.cmf_dict[key]["materials_and_labour"]:
                     data_string = ""
-                    if len(item) <=20:
+                    if len(item) <= 20:
                         data_string += f" {item}  -  £{self.cmf_dict[key]['materials_and_labour'][item]}"
                         list_to_return.append(data_string)
                     else:
@@ -654,9 +655,3 @@ class ChangeClientInfoDataHandler:
 
             with open(self.filename, "w") as new_data:
                 json.dump(cmf_dict, new_data, indent=2)
-
-
-
-
-
-

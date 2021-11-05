@@ -67,7 +67,7 @@ class HomePage(AddNewClient, DisplayClientList):
 
         self.homepage_image_frame = Frame(self.homepage_frame)
 
-        global gj_image # This is neccesary due to tkinter/pil funkyness
+        global gj_image  # This is necessary due to tkinter/pil funkiness
         gj_image = ImageTk.PhotoImage(Image.open("pictures/gj.png"))
         self.homepage_image_frame.config(height=500, width=500, highlightthickness=0, borderwidth=0)
         self.homepage_image_frame.grid(row=0, column=0, columnspan=2, padx=(25, 0), pady=40)

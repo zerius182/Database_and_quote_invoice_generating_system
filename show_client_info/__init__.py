@@ -134,7 +134,9 @@ class ClientInfoDisplay(ClientMarkFunctions, AddNewClientRef, AddNote, AddToMatA
         if self.client_dict["client_ref"] is None:
             self.service_address_name_label = Label(self.service_address_frame, text=self.client_dict["name"])
         else:
-            self.service_address_name_label = Label(self.service_address_frame, text=f"{self.client_dict['name']}({self.client_dict['client_ref']})")
+            self.service_address_name_label = Label(self.service_address_frame,
+                                                    text=f"{self.client_dict['name']}("
+                                                         f"{self.client_dict['client_ref']})")
         self.service_address_name_label.config(font=self.cid_font, bg=self.label_background_colour)
         self.service_address_name_label.place(x="200", y="80", anchor="center")
         self.service_add1_label = Label(self.service_address_frame, text=self.client_dict["service_address"]
@@ -221,8 +223,8 @@ class ClientInfoDisplay(ClientMarkFunctions, AddNewClientRef, AddNote, AddToMatA
                                                     *self.function_options, command=self.option_function)
         self.client_info_dropdown_menu.config(font=self.cid_font, height=2,
                                               bg=self.project_bar_colour,
-                                              activebackground=self.project_bar_colour
-                                              , borderwidth=0, highlightthickness=0, direction="above", indicatoron=0)
+                                              activebackground=self.project_bar_colour,
+                                              borderwidth=0, highlightthickness=0, direction="above", indicatoron=0)
         self.client_info_dropdown_menu["menu"].config(bg="white", font=self.cid_font)
         self.client_info_dropdown_menu.grid(row=2, column=0, sticky="we", pady=(8, 0))
         self.client_mat_and_lab_list = self.populate_mat_lab_listbox(self.client_info_key, display_full=False)
