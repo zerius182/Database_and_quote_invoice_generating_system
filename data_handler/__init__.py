@@ -3,7 +3,6 @@ import datetime
 from random import randint
 from pathlib import Path
 
-
 class DataCreator:
 
     def __init__(self):
@@ -12,8 +11,6 @@ class DataCreator:
 
     @staticmethod
     def ref_num_maker():
-        """Creates unique client reference number"""
-
         file_name = "client_database.json"
         file_path = Path(file_name)
         if file_path.is_file():
@@ -46,7 +43,6 @@ class DataCreator:
                    service_address_3=None, service_postcode=None, job_completed=False, quote_declined=False,
                    price=0, amount_paid=0, date_quote_sent="Not Sent", date_invoice_sent="Not Sent", client_ref=None,
                    invoice_number=None, date_paid="Not Paid", favourite=False):
-        """Adds inputted information to unique client dictionary"""
         # Invoice number creation
         inv_file_name = "invoice_number.json"
         inv_file_path = Path(inv_file_name)
@@ -115,19 +111,16 @@ class DataCreator:
 
 
 class ClientListPopulate:
-    """Listbox population methods"""
     def __init__(self):
         self.filename = "client_database.json"
         self.filepath = Path(self.filename)
 
     def clv_populate_all(self):
-        """Creates a list of all clients info to display in client list viewer"""
         list_to_return = []
         self.key_dict = []
         if self.filepath.is_file():
             with open(self.filename, "r") as open_data:
                 clv_dict = json.load(open_data)
-
                 for item in clv_dict:
                     string_to_disp = ""
                     if clv_dict[item]["client_ref"] is None:
@@ -150,8 +143,6 @@ class ClientListPopulate:
             return list_to_return
 
     def clv_populate_quotes_pending(self):
-        """Searches database for all clients marked as quotes pending and returns list"""
-
         list_to_return = []
         self.key_dict = []
         if self.filepath.is_file():
@@ -187,8 +178,6 @@ class ClientListPopulate:
             return list_to_return
 
     def clv_populate_quotes_accepted(self):
-        """Searches database for all clients marked as quotes accepted and returns list"""
-
         list_to_return = []
         self.key_dict = []
         if self.filepath.is_file():
@@ -223,8 +212,6 @@ class ClientListPopulate:
             return list_to_return
 
     def clv_populate_awaiting_payment(self):
-        """Searches database for all clients marked as awaiting payment and returns list"""
-
         list_to_return = []
         self.key_dict = []
         if self.filepath.is_file():
@@ -259,7 +246,6 @@ class ClientListPopulate:
             return list_to_return
 
     def clv_populate_jobs_completed(self):
-        """Searches database for all clients marked as job completed and returns list"""
         list_to_return = []
         self.key_dict = []
         if self.filepath.is_file():
@@ -293,7 +279,6 @@ class ClientListPopulate:
             return list_to_return
 
     def clv_populate_favourites(self):
-        """Searches database and returns list of all favourite clients"""
         list_to_return = []
         self.key_dict = []
         if self.filepath.is_file():
@@ -327,11 +312,9 @@ class ClientListPopulate:
             return list_to_return
 
     def clv_dict_key_maker(self):
-        """Returns client key dictionary"""
         return self.key_dict
 
     def search_populate(self, search_term):
-        """Populates client list viewer with searched term"""
         self.key_dict = []
         self.list_to_return = []
         search_dict = []
@@ -404,7 +387,6 @@ class ClientListPopulate:
 
 
 class ClientInfoDictCreate:
-    """Creates dictionary to display in show client info"""
     def __init__(self):
         self.filename = "client_database.json"
 
@@ -416,7 +398,6 @@ class ClientInfoDictCreate:
 
 
 class FavouriteInfoDictCreate:
-    """Creates dictionary to use in favourites top_level"""
     def __init__(self):
         self.filename = "client_database.json"
 
@@ -428,13 +409,11 @@ class FavouriteInfoDictCreate:
 
 
 class ClientMarkFunctions:
-    """Functions to add parameters as marked"""
     def __init__(self):
         self.filename = "client_database.json"
         self.filepath = Path(self.filename)
 
     def create_newest_cmf_dict(self):
-        """Creates new dict of client info when pages are repopulated"""
         self.filename = "client_database.json"
         self.filepath = Path(self.filename)
         if self.filepath.is_file():
@@ -442,33 +421,28 @@ class ClientMarkFunctions:
                 self.cmf_dict = json.load(open_data)
 
     def dict_quote_sent(self, client_key):
-        """Marks client as quote sent"""
         self.cmf_dict[client_key]["quote_sent"] = True
         self.cmf_dict[client_key]["date_quote_sent"] = str(datetime.date.today().strftime("%d-%m-%Y"))
         with open(self.filename, "w") as open_data:
             json.dump(self.cmf_dict, open_data, indent=2)
 
     def dict_quote_accepted(self, client_key):
-        """Marks client as quote accepted"""
         self.cmf_dict[client_key]["quote_accepted"] = True
         with open(self.filename, "w") as open_data:
             json.dump(self.cmf_dict, open_data, indent=2)
 
     def dict_quote_declined(self, client_key):
-        """Marks client as quote declined"""
         self.cmf_dict[client_key]["quote_declined"] = True
         with open(self.filename, "w") as open_data:
             json.dump(self.cmf_dict, open_data, indent=2)
 
     def dict_invoice_sent(self, client_key):
-        """Marks client as invoice sent"""
         self.cmf_dict[client_key]["invoice_sent"] = True
         self.cmf_dict[client_key]["date_invoice_sent"] = str(datetime.date.today().strftime("%d-%m-%Y"))
         with open(self.filename, "w") as open_data:
             json.dump(self.cmf_dict, open_data, indent=2)
 
     def dict_paid(self, client_key):
-        """Marks client as paid"""
         self.cmf_dict[client_key]["amount_paid"] = self.cmf_dict[client_key]["price"]
         self.cmf_dict[client_key]["paid"] = True
         self.cmf_dict[client_key]["job_completed"] = True
@@ -478,13 +452,11 @@ class ClientMarkFunctions:
 
 
 class AddNewClientRef:
-    """Adds new client reference name to dictionary"""
     def __init__(self):
         self.filename = "client_database.json"
         self.filepath = Path(self.filename)
 
     def add_ref_to_dict(self, client_key, new_data):
-        """Adds new client ref to database"""
         with open(self.filename, "r") as open_data:
             self.cmf_dict = json.load(open_data)
 
@@ -494,7 +466,6 @@ class AddNewClientRef:
 
 
 class AddNote:
-    """Adds new note to client dictionary"""
     def __init__(self):
         self.filename = "client_database.json"
         self.filepath = Path(self.filename)
@@ -509,13 +480,11 @@ class AddNote:
 
 
 class AddDataToMatAndLabour:
-    """Materials and Labour methods"""
     def __init__(self):
         self.filename = "client_database.json"
         self.filepath = Path(self.filename)
 
     def add_to_dict(self, key, dic):
-        """Adds info to clients materials and labour list"""
         with open(self.filename, "r") as open_data:
             self.cmf_dict = json.load(open_data)
 
@@ -536,13 +505,11 @@ class AddDataToMatAndLabour:
 
 
 class MatAndLabListBoxPopulate:
-    """Populates materials and labour"""
     def __init__(self):
         self.filename = "client_database.json"
         self.filepath = Path(self.filename)
 
     def populate_mat_lab_listbox(self, key, display_full):
-        """Creates and returns a list of materials and labour"""
         if self.filepath.is_file():
             with open(self.filename, "r") as open_data:
                 self.cmf_dict = json.load(open_data)
@@ -570,13 +537,11 @@ class MatAndLabListBoxPopulate:
 
 
 class AddPayment:
-    """Add payment methods"""
     def __init__(self):
         self.filename = "client_database.json"
         self.filepath = Path(self.filename)
 
     def add_payment(self, key, value):
-        """Adds payment to client dictionary"""
         with open(self.filename, "r") as open_data:
             self.cmf_dict = json.load(open_data)
 
@@ -594,7 +559,6 @@ class AddPayment:
 
 
 class ViewNotes:
-    """View Notes Page"""
     def __init__(self):
         self.filename = "client_database.json"
         self.filepath = Path(self.filename)
@@ -614,7 +578,6 @@ class ViewNotes:
 
 
 class BackUpDatabase:
-    """Database backup methods"""
     def __init__(self):
         self.main_filename = "client_database.json"
         self.main_filepath = Path(self.main_filename)
@@ -624,7 +587,6 @@ class BackUpDatabase:
         self.backup_inv_filename = "invoice_number_backup.json"
 
     def back_up(self):
-        """Backs up main client databases to backup databases"""
         if self.main_filepath.is_file():
             with open(self.main_filename, "r") as open_data:
                 data_to_backup = json.load(open_data)
@@ -638,7 +600,6 @@ class BackUpDatabase:
 
 
 class RecoverDatabase:
-    """Database recovery methods"""
     def __init__(self):
         self.main_filename = "client_database.json"
         self.main_filepath = Path(self.main_filename)
@@ -648,7 +609,6 @@ class RecoverDatabase:
         self.backup_inv_filename = "invoice_number_backup.json"
 
     def recover_database(self):
-        """Copies backed up data to main databases"""
         with open(self.backup_filename, "r") as backup_data:
             data_to_recover = json.load(backup_data)
         with open(self.main_filename, "w") as empty_database:
@@ -661,7 +621,6 @@ class RecoverDatabase:
 
 
 class ChangeClientInfoDataHandler:
-    """Changes Client info"""
     def __init__(self):
         self.filename = "client_database.json"
         self.filepath = Path(self.filename)
